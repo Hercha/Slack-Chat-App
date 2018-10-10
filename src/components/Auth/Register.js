@@ -71,13 +71,13 @@ class Register extends React.Component {
     }
 }
 
-handleInputError = (errors, inputName) => {
-  return errors.some(error =>
-    error.message.toLowerCase().includes(inputName)
-    ) 
-     ? "error"
-     : ""
-}
+  handleInputError = (errors, inputName) => {
+    return errors.some(error =>
+      error.message.toLowerCase().includes(inputName)
+      ) 
+      ? "error"
+      : ""
+  }
 
   render () {
 
