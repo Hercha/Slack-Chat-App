@@ -26,7 +26,7 @@ class Messages extends React.Component {
     if(channel && user) {
       this.addListeners(channel.id);
     }
-  }
+  };
 
   addListeners = channelId => {
     this.addMessageListener(channelId);
@@ -49,13 +49,13 @@ class Messages extends React.Component {
       searchTerm: event.target.value,
       searchLoading: true
     }, () => this.handleSearchMessages());
-  }
+  };
 
   handleSearchMessages =() => {
     const channelMessages = [...this.state.messages];
     const regex = new RegExp(this.state.searchTerm, 'gi');
     const searchResults = channelMessages.reduce((acc, message) => {
-      if(message.content && message.content.match(regex) ||
+      if((message.content && message.content.match(regex)) ||
         message.user.name.match(regex)) {
         acc.push(message);
       }
@@ -63,7 +63,7 @@ class Messages extends React.Component {
     }, []);
     this.setState({ searchResults });
     setTimeout(() => this.setState({ searchLoading: false }), 500);
-  }
+  };
 
   countUniqueUsers = messages => {
     const uniqueUsers = messages.reduce((acc, message) => {
@@ -75,7 +75,7 @@ class Messages extends React.Component {
     const plural = uniqueUsers.length > 1 || uniqueUsers.length === 0;
     const numUniqueUsers = `${uniqueUsers.length} user${plural ? "s" : ""}`;
     this.setState({ numUniqueUsers });
-  }
+  };
 
   displayMessages = messages => (
     messages.length > 0 && messages.map(message => (
@@ -85,13 +85,13 @@ class Messages extends React.Component {
         user={this.state.user}
       />
     ))
-  )
+  );
 
   isProgressBarVisible = percent => {
     if(percent > 0) {
       this.setState({ progressBar: true });
     }
-  }
+  };
 
   displayChannelName = channel => channel ? `#${channel.name}` : '';
 
