@@ -3,7 +3,6 @@ import firebase from '../../firebase';
 import { connect } from 'react-redux';
 import { setCurrentChannel, setPrivateChannel } from '../../actions';
 import { Menu, Icon } from 'semantic-ui-react';
-import { relativeTimeThreshold } from 'moment';
 
 class DirectMessages extends React.Component {
   state = {
