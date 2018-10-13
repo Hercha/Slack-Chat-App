@@ -29,7 +29,7 @@ class MetaPanel extends React.Component {
           </List.Content>
         </List.Item>    
       ))
-      .slice(0, 5);
+      .slice(0, 5)
 
   render() {
     const { activeIndex, privateChannel, channel } = this.state;
