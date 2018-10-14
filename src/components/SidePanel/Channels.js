@@ -14,6 +14,7 @@ class Channels extends React.Component {
     channelDetails: '',
     channelsRef: firebase.database().ref('channels'),
     messagesRef: firebase.database().ref('messages'),
+    typingRef: firebase.database().ref('typing'),
     notifications: [],
     modal: false,
     firstLoad: true
@@ -81,7 +82,7 @@ class Channels extends React.Component {
       this.setState({ channel: firstChannel });
     }
     this.setState({ firstLoad: false });
-  }
+  };
 
   addChannel = () => {
     const { channelsRef, channelName, channelDetails, user } = this.state;
@@ -107,14 +108,14 @@ class Channels extends React.Component {
       .catch(err => {
         console.error(err);
       })
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
     if(this.isFormValid(this.state)) {
       this.addChannel();
     }
-  }
+  };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -122,11 +123,15 @@ class Channels extends React.Component {
 
   changeChannel = channel => {
     this.setActiveChannel(channel);
+    this.state.typingRef
+      .child(this.state.channel.id)
+      .child(this.state.user.uid)
+      .remove();
     this.clearNotifications();
     this.props.setCurrentChannel(channel);
     this.props.setPrivateChannel(false);
     this.setState({ channel });
-  }
+  };
 
   clearNotifications = () => {
     let index = this.state.notifications.findIndex(notification => notification.id === this.state.channel.id);
@@ -137,11 +142,11 @@ class Channels extends React.Component {
       updatedNotifications[index].count = 0;
       this.setState({ notifications: updatedNotifications });
     }
-  }
+  };
 
   setActiveChannel = channel => {
     this.setState({ activeChannel: channel.id });
-  }
+  };
 
   getNotificationCount = channel => {
     let count = 0;
